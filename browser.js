@@ -1,12 +1,10 @@
 /* global document, atob, Uint64LE */
 
-const input = document.getElementById('input');
-const output = document.getElementById('output');
-const urlregex = /(\d{10,30})\/?(.+)/g;
-
-const options = {
-  domain: 'mss.ovh',
-};
+const input = document.getElementById('mail_input');
+const output = document.getElementById('mail_output');
+const url = document.getElementById('mail_url');
+const message = document.getElementById('mail_message');
+const urlregex = /(\d{10,30})\/+(.+)/g;
 
 const encode = (text) => {
   const parts = urlregex.exec(text);
@@ -30,7 +28,10 @@ const encode = (text) => {
 };
 
 input.addEventListener('input', () => {
-  output.innerHTML = encode(input.value);
-  output.innerHTML += '@';
-  output.innerHTML += options.domain;
+  const email = encode(input.value);
+  if (email) {
+    message.innerHTML = '';
+    output.innerHTML = `${email}@${input.dataset.url}`;
+    url.href = `mailto:${email}@${input.dataset.url}`;
+  }
 });

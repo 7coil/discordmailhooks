@@ -1,0 +1,23 @@
+{
+  "name": "discordmailhooks",
+  "version": "1.0.0",
+  "description": "An E-Mail to Discord Webhooks mail server for recieving only",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Moustacheminer Server Services",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-config-google": "^0.9.1",
+    "eslint-plugin-import": "^2.9.0"
+  },
+  "dependencies": {
+    "int64-buffer": "^0.1.10",
+    "mailparser": "^2.2.0",
+    "node-base91": "^0.3.4",
+    "request": "^2.83.0",
+    "smtp-server": "^3.4.1"
+  }
+}

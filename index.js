@@ -13,10 +13,8 @@ const options = {
 };
 
 const execute = (mail, from, url) => new Promise((resolve, reject) => {
-  request.post({
-    url,
-    json: true,
-    body: {
+  const formData = {
+    payload_json: JSON.stringify({
       embeds: [{
         title: mail.subject || 'Untitled E-Mail',
         description: mail.text || 'Empty E-Mail',
@@ -28,7 +26,22 @@ const execute = (mail, from, url) => new Promise((resolve, reject) => {
           text: 'webhooks.discordmail.com',
         },
       }],
-    },
+    }),
+  };
+
+  if (mail.attachments[0]) {
+    formData.file = {
+      value: mail.attachments[0].content,
+      options: {
+        filename: mail.attachments[0].filename,
+        contentType: mail.attachments[0].contentType,
+      },
+    };
+  }
+
+  request.post({
+    url,
+    formData,
   }, (err, response, body) => {
     if (err) return reject(new Error('Some error happened on the DiscordMail server'));
     if (response.statusCode === 200) return resolve();

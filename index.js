@@ -12,7 +12,17 @@ const options = {
   cert: '/etc/letsencrypt/live/mss.ovh/fullchain.pem',
 };
 
-const execute = (mail, from, url) => new Promise((resolve, reject) => {
+const execute = (mail, url) => new Promise((resolve, reject) => {
+  let from = '';
+
+  if (!mail.from.text) {
+    from = 'Unknown Author';
+  } else if (mail.from.text.length > 256) {
+    from = `${mail.from.text.substring(0, 250)}...`;
+  } else {
+    from = mail.from.text;
+  }
+
   const formData = {
     payload_json: JSON.stringify({
       embeds: [{
@@ -86,16 +96,6 @@ const server = new SMTPServer({
       return callback(error);
     }
 
-    let from = '';
-
-    if (!mail.from.text) {
-      from = 'Unknown Author';
-    } else if (mail.from.text.length > 256) {
-      from = `${mail.from.text.substring(0, 250)}...`;
-    } else {
-      from = mail.from.text;
-    }
-
     const webhooks = mail.to.value
       .filter(email => email.address.endsWith(`@${options.domain}`))
       .map(email => email.address.slice(0, -(options.domain.length + 1)))
@@ -106,14 +106,13 @@ const server = new SMTPServer({
     if (webhooks.length > 0) {
       const url = webhooks[0];
       try {
-        await execute(mail, from, url);
+        await execute(mail, url);
         return callback();
       } catch (e) {
         e.responseCode = 552;
         console.log('=======================');
         console.log('Error report');
         console.log('Contents:', mail);
-        console.log('From: ', from);
         console.log('URL: ', url);
         console.log('Error: ', e.message);
         return callback(e);

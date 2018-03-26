@@ -1,10 +1,24 @@
 <html>
     <head>
-
+        <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+        <style>
+            body {
+                text-align: center;
+                font-family: 'Noto Sans', 'Roboto', 'Comic Sans MS';
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+        </style>
     </head>
     <body>
+        <h1>DiscordMailHooks Test Suite</h1>
+        <p>By using the beta version of DiscordMailHooks, you agree to the <a href="https://discordmail.com/docs/tos">Terms of Service</a> and <a href="https://discordmail.com/docs/privacy">Privacy Agreement</a>.</p>
         <input type="text" id="mail_input" data-url="mss.ovh">
-        <p><code id="mail_message">Use this E-Mail!</code><a href="" id="mail_url"><code id="mail_output"></code></a></p>
+        <p><code id="mail_message">Enter a webhook and copy the E-Mail that replaces this text.</code><a href="" id="mail_url"><code id="mail_output"></code></a></p>
+        <p>For support, try <a href="https://discordapp.com/invite/wHgdmf4">here</a>.</p>
+        <p><a href="https://discordmail.com">DiscordMail.com</a></p>
         <script src="https://rawgit.com/kawanet/int64-buffer/master/dist/int64-buffer.min.js"></script>
         <script src="browser.js"></script>
     </body>

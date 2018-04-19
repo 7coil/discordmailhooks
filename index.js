@@ -68,7 +68,6 @@ const server = new SMTPServer({
   banner: options.banner,
   async onData(stream, session, callback) {
     const mail = await simpleParser(stream);
-    console.log(mail);
     let error;
 
     // Check if there are too many attatchments, or if the attatchment is too large
@@ -102,6 +101,8 @@ const server = new SMTPServer({
       .map(email => decode(email))
       .filter(hash => !!hash) // Get rid of "broken" and "false" ones
       .map(hash => options.discord + hash);
+
+    console.dir(webhooks);
 
     if (webhooks.length > 0) {
       const url = webhooks[0];

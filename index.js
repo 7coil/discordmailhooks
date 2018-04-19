@@ -72,25 +72,25 @@ const server = new SMTPServer({
     let error;
 
     // Check if there are too many attatchments, or if the attatchment is too large
-    if (mail.attachments.length === 1 && mail.attachments[0].size > 8000000) {
+    if (mail.attachments && mail.attachments.length === 1 && mail.attachments[0].size > 8000000) {
       error = new Error('Your files are too powerful! Max file size 8.00Mb please.');
       error.responseCode = 552;
       return callback(error);
     }
 
-    if (mail.attachments.length > 1) {
+    if (mail.attachments && mail.attachments.length > 1) {
       error = new Error('Your files are too powerful! Only one attachment please.');
       error.responseCode = 552;
       return callback(error);
     }
 
-    if (mail.text.length > 2048) {
+    if (mail.text && mail.text.length > 2048) {
       error = new Error('Your message is too long. Please make your message shorter. We\'ve set the limit at 2,048 characters to be courteous to others.');
       error.responseCode = 552;
       return callback(error);
     }
 
-    if (mail.subject.length > 256) {
+    if (mail.subject && mail.subject.length > 256) {
       error = new Error('Your subject is too long. Please make your subject shorter. We\'ve set the limit at 256 characters to be courteous to others.');
       error.responseCode = 552;
       return callback(error);

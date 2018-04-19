@@ -1,7 +1,7 @@
 const { Uint64LE } = require('int64-buffer');
 const emails = require('./emails.json');
 
-const emailregex = /([\u2800-\u28FF]+)\+([\u2800-\u28FF]+)/g;
+const emailregex = /([\u2800-\u28FF]+)\+([\u2800-\u28FF]+)/;
 
 const decode = (text) => {
   if (emails[text]) return emails[text];

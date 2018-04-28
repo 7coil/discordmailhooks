@@ -1,9 +1,10 @@
 const { Uint64LE } = require('int64-buffer');
-const emails = require('./emails.json');
+const fs = require('fs');
 
 const emailregex = /([\u2800-\u28FF]+)\+([\u2800-\u28FF]+)/;
 
 const decode = (text) => {
+  const emails = JSON.parse(fs.readFileSync('./emails.json'));
   if (emails[text]) return emails[text];
 
   const parts = emailregex.exec(text);

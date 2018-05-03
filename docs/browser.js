@@ -1,10 +1,10 @@
 /* global document, atob, Uint64LE */
+/* eslint-env browser */
 
 const input = document.getElementById('mail_input');
 const output = document.getElementById('mail_output');
-const url = document.getElementById('mail_url');
-const message = document.getElementById('mail_message');
 const urlregex = /(\d{10,30})\/+(.+)/g;
+let email = '';
 
 const encode = (text) => {
   const parts = urlregex.exec(text);
@@ -28,10 +28,13 @@ const encode = (text) => {
 };
 
 input.addEventListener('input', () => {
-  const email = encode(input.value);
+  email = encode(input.value);
   if (email) {
-    message.innerHTML = '';
-    output.innerHTML = `${email}@${input.dataset.url}`;
-    url.href = `mailto:${email}@${input.dataset.url}`;
+    output.value = `${email}@${input.dataset.url}`;
   }
 });
+
+window.copyEmail = () => {
+  output.select();
+  document.execCommand('copy');
+};

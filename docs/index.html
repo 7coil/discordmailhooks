@@ -1,25 +1,56 @@
 <html>
     <head>
-        <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+        <link href="https://modesta.alexflipnote.xyz/css/modesta.css" type="text/css" rel="stylesheet">
         <style>
             body {
-                text-align: center;
-                font-family: 'Noto Sans', 'Roboto', 'Comic Sans MS';
                 display: flex;
                 flex-direction: column;
+                width: 90vw;
+                margin: auto;
+                text-align: center;
                 align-items: center;
                 justify-content: center;
+            }
+
+            input {
+                width: 80%;
+                box-sizing: border-box;
+            }
+            
+            #mail_input::placeholder {
+                color: white;
+                opacity: 1;
+            }
+
+            #mail_input:focus::placeholder {
+                color: transparent;
+                opacity: 0;
+            }
+
+            #mail_output {
+                color: black;
+                font-size: 8pt;
+            }
+
+            #mail_output::placeholder {
+                font-size: 12pt;
             }
         </style>
     </head>
     <body>
         <h1>DiscordMailHooks Test Suite</h1>
-        <p>By using the beta version of DiscordMailHooks, you agree to the <a href="https://discordmail.com/docs/tos">Terms of Service</a> and <a href="https://discordmail.com/docs/privacy">Privacy Agreement</a>.</p>
-        <input type="text" id="mail_input" data-url="mss.ovh">
-        <p><code id="mail_message">Enter a webhook and copy the E-Mail that replaces this text.</code><a href="" id="mail_url"><code id="mail_output"></code></a></p>
-        <p>For support, try <a href="https://discordapp.com/invite/wHgdmf4">here</a>.</p>
-        <p><a href="https://discordmail.com">DiscordMail.com</a></p>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/A4a4aLlBnDc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <div class="row">
+            <p>By using the beta version of DiscordMailHooks, you agree to the <a href="https://discordmail.com/docs/tos">Terms of Service</a> and <a href="https://discordmail.com/docs/privacy">Privacy Agreement</a>.</p>
+            <p>This service will be moved to the <code>discordmail.com</code> domain by the 29th May 2018</p>
+            <div class="box-container belize-hole">
+                <input class="btn" type="text" id="mail_input" data-url="mss.ovh" placeholder="Please enter a valid Discord webhook."><br />
+                <input class="btn white" type="text" id="mail_output" placeholder="E-Mail will appear here." onClick="copyEmail()"><br />
+                <i>Click E-Mail to copy.</i>
+            </div>
+            <p>For support, try <a href="https://discordapp.com/invite/wHgdmf4">here</a>.</p>
+            <p><a href="https://discordmail.com">DiscordMail.com</a></p>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/A4a4aLlBnDc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
         <script src="https://rawgit.com/kawanet/int64-buffer/master/dist/int64-buffer.min.js"></script>
         <script src="browser.js"></script>
     </body>

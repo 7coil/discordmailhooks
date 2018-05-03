@@ -108,7 +108,7 @@ const server = new SMTPServer({
       depth: null,
       colors: true,
       breakLength: Infinity,
-      compact: false
+      compact: false,
     }));
     console.dir(webhooks);
 

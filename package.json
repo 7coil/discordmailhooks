@@ -16,7 +16,6 @@
   "dependencies": {
     "int64-buffer": "^0.1.10",
     "mailparser": "^2.2.0",
-    "node-base91": "^0.3.4",
     "request": "^2.85.0",
     "smtp-server": "^3.4.2"
   }

@@ -3,7 +3,6 @@ const { simpleParser } = require('mailparser');
 const fs = require('fs');
 const decode = require('./decode');
 const request = require('request');
-const util = require('util');
 
 const options = {
   banner: 'Welcome to DiscordMailHooks! https://discordmail.com/ https://moustacheminer.com/ https://discord.gg/wHgdmf4',
@@ -103,15 +102,6 @@ const server = new SMTPServer({
       .filter(hash => !!hash) // Get rid of "broken" and "false" ones
       .map(hash => options.discord + hash);
 
-    console.log(util.inspect(mail, {
-      showHidden: true,
-      depth: null,
-      colors: true,
-      breakLength: Infinity,
-      compact: false,
-    }));
-    console.dir(webhooks);
-
     if (webhooks.length > 0) {
       const url = webhooks[0];
       try {
@@ -121,8 +111,6 @@ const server = new SMTPServer({
         e.responseCode = 552;
         console.log('=======================');
         console.log('Error report');
-        console.log('Contents:', mail);
-        console.log('URL: ', url);
         console.log('Error: ', e.message);
         return callback(e);
       }

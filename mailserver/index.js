@@ -180,8 +180,8 @@ const server = new SMTPServer({
     const checkMails = mail.to.value.map(email => email.address);
 
     // Add forwarded E-Mails to the list of emails to check
-    if (mail['x-forwarded-to']) {
-      checkMails.push(mail['x-forwarded-to']);
+    if (mail.headers.get('x-forwarded-to')) {
+      checkMails.push(mail.headers.get('x-forwarded-to'));
     }
 
     console.log(checkMails);

@@ -190,7 +190,7 @@ const server = new SMTPServer({
         domain: options.domain.find(value => email.endsWith(`@${value}`)),
       })) // Find domains which the server will respond to, and add them to the "packet" of sorts
       .filter(data => data.domain) // Find emails which don't have an domain, and remove it
-      .map(email => email.email.slice(0, -(email.length + 1))) // Strip domain off
+      .map(email => email.email.slice(0, -(email.domain.length + 1))) // Strip domain off
       .map(email => decode(email))
       .filter(data => !!data) // Get rid of "broken" and "false" ones
       .map(data => Object.assign(data, {

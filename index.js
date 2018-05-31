@@ -52,12 +52,12 @@ const execute = (mail, url) => new Promise((resolve, reject) => {
   // Add the email to a zip
   files.push({
     content: Buffer.from(mail.text, 'utf8'),
-    filename: 'plaintext',
+    filename: 'plaintext.txt',
     folder: '/contents',
   });
   files.push({
     content: Buffer.from(mail.html, 'utf8'),
-    filename: 'richtext',
+    filename: 'richtext.html',
     folder: '/contents',
   });
 
@@ -67,7 +67,10 @@ const execute = (mail, url) => new Promise((resolve, reject) => {
     zip.folder(file.folder).file(file.filename, file.content);
   });
 
-  const data = zip.generateNodeStream();
+  const data = zip.generateNodeStream({
+    type: 'nodebuffer',
+    streamFiles: true,
+  });
 
   // Create the text payload
   const formData = {

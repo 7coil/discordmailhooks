@@ -5,10 +5,15 @@ const emailregex = /([\u2800-\u28FF]+)\+([\u2800-\u28FF]+)/;
 
 const decode = (text) => {
   const emails = JSON.parse(fs.readFileSync('./emails.json'));
-  if (emails[text]) return emails[text];
+  if (emails[text]) {
+    return {
+      decoded: emails[text],
+      hidden: true,
+    };
+  }
 
   const parts = emailregex.exec(text);
-  if (!parts) return false;
+  if (!parts) return null;
 
   const id = [];
   const auth = [];
@@ -26,7 +31,10 @@ const decode = (text) => {
   decoded += '/';
   decoded += Buffer.from(auth).toString('base64').replace(/\+/g, '-').replace(/\//g, '_');
 
-  return decoded;
+  return {
+    decoded,
+    hidden: false,
+  };
 };
 
 if (process.argv[2]) console.log(decode(process.argv[2]));

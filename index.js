@@ -106,16 +106,18 @@ const server = new SMTPServer({
       .filter(data => data.domain) // Remove packets the server don't respond to
       .map(email => email.email.address.slice(0, -(email.domain.length + 1))) // Strip domain off
       .map(email => decode(email))
-      .filter(hash => !!hash) // Get rid of "broken" and "false" ones
-      .map(hash => options.discord + hash); // Append the Discord API uri
+      .filter(data => !!data) // Get rid of "broken" and "false" ones
+      .map(data => Object.assign(data, {
+        webhook: options.discord + data.decoded,
+      })); // Append the Discord API uri
 
     if (webhooks.length > 0) {
-      const url = webhooks[0];
+      const data = webhooks[0];
       try {
-        await execute(mail, url);
+        await execute(mail, data);
         return callback();
       } catch (e) {
-        error = new Error(`Something failed. Is your webhook ${url}? ${e.message}`);
+        error = new Error(`Something failed.${data.hidden ? 'Please contact the owner of the webhook directly.' : `Is your webhook ${data.webhook}?`} For support, visit https://discordmail.com/. ${e.message}`);
         error.responseCode = 552;
         console.log('=======================');
         console.log('Error report');

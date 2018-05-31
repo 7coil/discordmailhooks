@@ -87,7 +87,7 @@ const execute = (mail, url) => new Promise((resolve, reject) => {
         },
       }],
     }),
-    file: data,
+    // file: data,
   };
 
   request.post({

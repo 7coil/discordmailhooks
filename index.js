@@ -105,6 +105,13 @@ const execute = (mail, url) => new Promise((resolve, reject) => {
         breakLength: Infinity,
         compact: false,
       }));
+      console.log(util.inspect(formData, {
+        showHidden: true,
+        depth: null,
+        colors: true,
+        breakLength: Infinity,
+        compact: false,
+      }));
     }
     if (err) return reject(err);
     if (response.statusCode === 200) return resolve();

@@ -84,13 +84,7 @@ const execute = (mail, url) => new Promise((resolve, reject) => {
         },
       }],
     }),
-    file: {
-      value: data,
-      options: {
-        filename: 'contents.zip',
-        contentType: 'application/zip',
-      },
-    },
+    file: data,
   };
 
   request.post({

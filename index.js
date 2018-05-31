@@ -67,54 +67,61 @@ const execute = (mail, url) => new Promise((resolve, reject) => {
     zip.folder(file.folder).file(file.filename, file.content);
   });
 
-  const data = zip.generateNodeStream({
+  zip.generateNodeStream({
     type: 'nodebuffer',
     streamFiles: true,
-  });
-
-  // Create the text payload
-  const formData = {
-    payload_json: JSON.stringify({
-      embeds: [{
-        title: mail.subject || 'Untitled email',
-        description: text,
-        timestamp: mail.date || new Date(),
-        author: {
-          name: from,
+    compression: 'STORE',
+  }).then((data) => {
+    // Create the text payload
+    const formData = {
+      payload_json: JSON.stringify({
+        embeds: [{
+          title: mail.subject || 'Untitled email',
+          description: text,
+          timestamp: mail.date || new Date(),
+          author: {
+            name: from,
+          },
+          footer: {
+            text: 'https://discordmail.com/',
+          },
+        }],
+      }),
+      file: {
+        value: data,
+        options: {
+          filename: 'items.zip',
+          contentType: 'application/zip',
         },
-        footer: {
-          text: 'https://discordmail.com/',
-        },
-      }],
-    }),
-    // file: data,
-  };
+      },
+    };
 
-  request.post({
-    url,
-    formData,
-  }, (err, response, body) => {
-    if (mail.subject.startsWith('debug-discordmail-')) {
-      console.log(util.inspect(mail, {
-        showHidden: true,
-        depth: null,
-        colors: true,
-        breakLength: Infinity,
-        compact: false,
-      }));
-      console.log(util.inspect(formData, {
-        showHidden: true,
-        depth: null,
-        colors: true,
-        breakLength: Infinity,
-        compact: false,
-      }));
-    }
-    if (err) return reject(err);
-    if (response.statusCode === 200) return resolve();
-    if (response.statusCode === 204) return resolve();
-    if (body.message) return reject(new Error(`Discord Error ${response.statusCode}: ${body.message}`));
-    return reject(new Error(`Discord Error ${response.statusCode}: ${body}`));
+    request.post({
+      url,
+      formData,
+    }, (err, response, body) => {
+      if (mail.subject.startsWith('debug-discordmail-')) {
+        console.log(util.inspect(mail, {
+          showHidden: true,
+          depth: null,
+          colors: true,
+          breakLength: Infinity,
+          compact: false,
+        }));
+        console.log(util.inspect(formData, {
+          showHidden: true,
+          depth: null,
+          colors: true,
+          breakLength: Infinity,
+          compact: false,
+        }));
+      }
+      if (err) return reject(err);
+      if (response.statusCode === 200) return resolve();
+      if (response.statusCode === 204) return resolve();
+      if (body.message) return reject(new Error(`Discord Error ${response.statusCode}: ${body.message}`));
+      return reject(new Error(`Discord Error ${response.statusCode}: ${body}`));
+    });
   });
 });
 

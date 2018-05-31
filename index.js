@@ -20,6 +20,7 @@ const options = {
 const execute = (mail, url) => new Promise((resolve, reject) => {
   let from = '';
   let text = '';
+  let fields = [];
   let truncated = false;
 
   // Add attatchments to archive
@@ -61,6 +62,22 @@ const execute = (mail, url) => new Promise((resolve, reject) => {
     folder: '/contents',
   });
 
+  // If truncated, add a little note
+  if (truncated) {
+    fields.push({
+      name: 'Note',
+      value: 'One or more fields have been truncated. Truncated contents can be viewed in the `.zip` file, under the `contents` folder.',
+    });
+  }
+
+  // If the email had attatchments, add a little note
+  if (mail.attachments.length > 0) {
+    fields.push({
+      name: 'Attatchments',
+      value: 'You have attatchments. These can be viewed in the `.zip` file, under the `attatchments` folder.',
+    });
+  }
+
   // Zip all files and attatchments
   const zip = new Zip();
   files.forEach((file) => {
@@ -82,6 +99,7 @@ const execute = (mail, url) => new Promise((resolve, reject) => {
           author: {
             name: from,
           },
+          fields,
           footer: {
             text: 'https://discordmail.com/',
           },

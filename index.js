@@ -100,13 +100,13 @@ const execute = (mail, url) => new Promise((resolve, reject) => {
     if (response.statusCode === 200) return resolve();
     if (response.statusCode === 204) return resolve();
     if (body.message) return reject(new Error(`Discord Error ${response.statusCode}: ${body.message}`));
-    return reject(new Error(`Discord Error ${response.statusCode}`));
+    return reject(new Error(`Discord Error ${response.statusCode}: ${body}`));
   });
 });
 
 const server = new SMTPServer({
-  key: fs.readFileSync(options.key),
-  cert: fs.readFileSync(options.cert),
+  key: options.key ? fs.readFileSync(options.key) : null,
+  cert: options.cert ? fs.readFileSync(options.cert) : null,
   authOptional: true,
   banner: options.banner,
   async onData(stream, session, callback) {
@@ -149,7 +149,7 @@ const server = new SMTPServer({
         error.responseCode = 552;
         console.log('=======================');
         console.log('Error report');
-        console.log('Error: ', e.message);
+        console.log(e);
         return callback(error);
       }
     } else {

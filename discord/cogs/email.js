@@ -29,7 +29,7 @@ module.exports = [{
     const decoded = decode(message.mss.input);
 
     if (decoded) {
-      message.channel.createMessage(`**URL:** ${decoded.hidden ? 'Protected' : decoded.decoded}\n**Mode:** ${modes[decoded.middle]}`);
+      message.channel.createMessage(`**URL:** ${decoded.hidden ? 'Protected' : decoded.decoded}\n**Mode:** ${modes[decoded.middle] || 'Unknown Mode'}`);
     } else {
       message.channel.createMessage('Your webhook was invalid.');
     }

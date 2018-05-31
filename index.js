@@ -67,7 +67,7 @@ const execute = (mail, url) => new Promise((resolve, reject) => {
     zip.folder(file.folder).file(file.filename, file.content);
   });
 
-  zip.generateNodeStream({
+  zip.generateAsync({
     type: 'nodebuffer',
     streamFiles: true,
     compression: 'STORE',

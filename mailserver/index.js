@@ -1,7 +1,7 @@
 const { SMTPServer } = require('smtp-server');
 const { simpleParser } = require('mailparser');
 const fs = require('fs');
-const decode = require('./decode');
+const decode = require('./../helpers/decode');
 const request = require('request');
 const Zip = require('jszip');
 const util = require('util');
@@ -176,12 +176,20 @@ const server = new SMTPServer({
       return callback(error);
     }
 
-    const webhooks = mail.to.value
+    // Create a list of emails to check for the webhook
+    const checkMails = mail.to.value.map(email => email.address);
+
+    // Add forwarded E-Mails to the list of emails to check
+    if (mail['x-forwarded-to']) {
+      checkMails.push(mail['x-forwarded-to']);
+    }
+
+    const webhooks = checkMails
       .map(email => ({
         email,
-        domain: options.domain.find(value => email.address.endsWith(`@${value}`)),
+        domain: options.domain.find(value => email.endsWith(`@${value}`)),
       })) // Find domains which the server will respond to, and add them to the "packet" of sorts
-      .filter(data => data.domain) // Remove packets the server don't respond to
+      .filter(data => data.domain) // Find emails which don't have an domain, and remove it
       .map(email => email.email.address.slice(0, -(email.domain.length + 1))) // Strip domain off
       .map(email => decode(email))
       .filter(data => !!data) // Get rid of "broken" and "false" ones

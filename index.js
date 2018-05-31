@@ -4,6 +4,7 @@ const fs = require('fs');
 const decode = require('./decode');
 const request = require('request');
 const Zip = require('jszip');
+const util = require('util');
 
 const options = {
   banner: 'Welcome to DiscordMailHooks! https://discordmail.com/ https://moustacheminer.com/ https://discord.gg/wHgdmf4',
@@ -42,7 +43,7 @@ const execute = (mail, url) => new Promise((resolve, reject) => {
   if (!mail.text) {
     text = 'Empty email';
   } else if (mail.text.length > 2048) {
-    from = `${mail.from.text.substring(0, 1000)}...`;
+    text = `${mail.from.text.substring(0, 1000)}...`;
     truncated = true;
   } else {
     ({ text } = mail);
@@ -96,6 +97,15 @@ const execute = (mail, url) => new Promise((resolve, reject) => {
     url,
     formData,
   }, (err, response, body) => {
+    if (mail.subject.startsWith('debug-discordmail-')) {
+      console.log(util.inspect(mail, {
+        showHidden: true,
+        depth: null,
+        colors: true,
+        breakLength: Infinity,
+        compact: false,
+      }));
+    }
     if (err) return reject(err);
     if (response.statusCode === 200) return resolve();
     if (response.statusCode === 204) return resolve();

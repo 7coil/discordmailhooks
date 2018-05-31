@@ -184,6 +184,8 @@ const server = new SMTPServer({
       checkMails.push(mail['x-forwarded-to']);
     }
 
+    console.log(checkMails);
+
     const webhooks = checkMails
       .map(email => ({
         email,

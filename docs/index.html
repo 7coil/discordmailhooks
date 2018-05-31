@@ -1,6 +1,9 @@
 <html>
     <head>
         <link href="https://modesta.alexflipnote.xyz/css/modesta.css" type="text/css" rel="stylesheet">
+        <meta charset="UTF-8">
+        <meta name="description" content="Recieve E-Mails from a Discord Webhook with DiscordMailHooks">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
             body {
                 display: flex;
@@ -10,6 +13,8 @@
                 text-align: center;
                 align-items: center;
                 justify-content: center;
+                padding-top: 10em;
+                padding-bottom: 10em;
             }
 
             input {
@@ -43,22 +48,22 @@
             <p>By using the beta version of DiscordMailHooks, you agree to the Terms and Conditions and Privacy Agreement.</p>
             <p>This service will be moved to the <code>discordmail.com</code> domain by the 29th May 2018</p>
             <div class="box-container belize-hole">
-                <input class="btn" type="text" id="mail_input" data-url="discordmail.com" placeholder="Please enter a valid Discord webhook."><br />
+                <input class="btn" type="text" id="mail_input" data-url="discordmail.com" placeholder="Paste a webhook in this box."><br />
                 <input class="btn white" type="text" id="mail_output" placeholder="E-Mail will appear here." onClick="copyEmail()"><br />
                 <i>Click E-Mail to copy.</i>
             </div>
             <p>For support, try <a href="https://discordapp.com/invite/wHgdmf4">here</a>.</p>
-            <p><a href="https://discordmail.com">DiscordMail.com</a></p>
+            <p><a href="https://moustacheminer.com">moustacheminer.com</a></p>
             <iframe width="560" height="315" src="https://www.youtube.com/embed/A4a4aLlBnDc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
-        <script src="https://rawgit.com/kawanet/int64-buffer/master/dist/int64-buffer.min.js"></script>
-        <script src="browser.js"></script>
         <h1>Terms and Conditions and Privacy Agreement</h1>
         <div class="row">
             <p>By using this service, you allow us to process your email, and transmit information stored within the E-Mail to Discord Inc.</p>
-            <p>Your email is temporarily read and transmitted to Discord, before it is destroyed.</p>
+            <p>Your email is temporarily read, processed and transmitted to Discord, before it is destroyed.</p>
             <p>Logs do not contain any information about emails.</p>
             <p>We only store webhook links, if a custom webhook email address is requested. No other information is stored.</p>
         </div>
+        <script src="https://rawgit.com/kawanet/int64-buffer/master/dist/int64-buffer.min.js"></script>
+        <script src="browser.js"></script>
     </body>
 </html>

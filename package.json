@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "int64-buffer": "^0.1.10",
+    "jszip": "^3.1.5",
     "mailparser": "^2.2.0",
     "request": "^2.85.0",
     "smtp-server": "^3.4.2"

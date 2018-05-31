@@ -3,6 +3,7 @@ const { simpleParser } = require('mailparser');
 const fs = require('fs');
 const decode = require('./decode');
 const request = require('request');
+const Zip = require('jszip');
 
 const options = {
   banner: 'Welcome to DiscordMailHooks! https://discordmail.com/ https://moustacheminer.com/ https://discord.gg/wHgdmf4',
@@ -17,40 +18,79 @@ const options = {
 
 const execute = (mail, url) => new Promise((resolve, reject) => {
   let from = '';
+  let text = '';
+  let truncated = false;
 
+  // Add attatchments to archive
+  const files = mail.attachments.map(file => ({
+    content: file.content,
+    filename: file.filename,
+    folder: '/attatchments',
+  }));
+
+  // Trim down the author
   if (!mail.from.text) {
     from = 'Unknown Author';
   } else if (mail.from.text.length > 256) {
     from = `${mail.from.text.substring(0, 250)}...`;
+    truncated = true;
   } else {
     from = mail.from.text;
   }
 
+  // Trim down the contents
+  if (!mail.text) {
+    text = 'Empty email';
+  } else if (mail.text.length > 2048) {
+    from = `${mail.from.text.substring(0, 1000)}...`;
+    truncated = true;
+  } else {
+    ({ text } = mail);
+  }
+
+  // Add the email to a zip
+  files.push({
+    content: Buffer.from(mail.text, 'utf8'),
+    filename: 'plaintext',
+    folder: '/contents',
+  });
+  files.push({
+    content: Buffer.from(mail.html, 'utf8'),
+    filename: 'richtext',
+    folder: '/contents',
+  });
+
+  // Zip all files and attatchments
+  const zip = new Zip();
+  files.forEach((file) => {
+    zip.folder(file.folder).file(file.filename, file.content);
+  });
+
+  const data = zip.generateNodeStream();
+
+  // Create the text payload
   const formData = {
     payload_json: JSON.stringify({
       embeds: [{
-        title: mail.subject || 'Untitled E-Mail',
-        description: mail.text || 'Empty E-Mail',
+        title: mail.subject || 'Untitled email',
+        description: text,
         timestamp: mail.date || new Date(),
         author: {
           name: from,
         },
         footer: {
-          text: 'webhooks.discordmail.com',
+          text: 'https://discordmail.com/',
         },
       }],
     }),
-  };
-
-  if (mail.attachments[0]) {
-    formData.file = {
-      value: mail.attachments[0].content,
+    file: {
+      value: data,
       options: {
-        filename: mail.attachments[0].filename,
-        contentType: mail.attachments[0].contentType,
+        filename: 'contents.zip',
+        contentType: 'application/zip',
       },
-    };
-  }
+    },
+  };
 
   request.post({
     url,
@@ -73,21 +113,9 @@ const server = new SMTPServer({
     const mail = await simpleParser(stream);
     let error;
 
-    // Check if there are too many attatchments, or if the attatchment is too large
-    if (mail.attachments && mail.attachments.length === 1 && mail.attachments[0].size > 8000000) {
+    // Check if the attatchment or zip will be too big
+    if (mail.attachments && mail.attachments.reduce((acc, cur) => acc + cur) > 8000000) {
       error = new Error('Your files are too powerful! Max file size 8.00Mb please.');
-      error.responseCode = 552;
-      return callback(error);
-    }
-
-    if (mail.attachments && mail.attachments.length > 1) {
-      error = new Error('Your files are too powerful! Only one attachment please.');
-      error.responseCode = 552;
-      return callback(error);
-    }
-
-    if (mail.text && mail.text.length > 2048) {
-      error = new Error('Your message is too long. Please make your message shorter. We\'ve set the limit at 2,048 characters to be courteous to others.');
       error.responseCode = 552;
       return callback(error);
     }

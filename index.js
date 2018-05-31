@@ -114,7 +114,7 @@ const server = new SMTPServer({
     let error;
 
     // Check if the attatchment or zip will be too big
-    if (mail.attachments && mail.attachments.reduce((acc, cur) => acc + cur) > 8000000) {
+    if (mail.attachments && mail.attachments.reduce((acc, cur) => acc + cur, 0) > 8000000) {
       error = new Error('Your files are too powerful! Max file size 8.00Mb please.');
       error.responseCode = 552;
       return callback(error);

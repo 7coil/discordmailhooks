@@ -40,7 +40,7 @@ const execute = (mail, url) => new Promise((resolve, reject) => {
   }
 
   // Trim down the contents
-  if (!mail.text) {
+  if (mail.text.length === 0) {
     text = 'Empty email';
   } else if (mail.text.length > 2048) {
     text = `${mail.from.text.substring(0, 1000)}...`;

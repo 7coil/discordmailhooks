@@ -7,7 +7,10 @@ const request = require('request');
 const options = {
   banner: 'Welcome to DiscordMailHooks! https://discordmail.com/ https://moustacheminer.com/ https://discord.gg/wHgdmf4',
   discord: 'https://canary.discordapp.com/api/webhooks/',
-  domain: 'mss.ovh',
+  domain: [
+    'mss.ovh',
+    'discordmail.com',
+  ],
   key: '/etc/letsencrypt/live/mss.ovh/privkey.pem',
   cert: '/etc/letsencrypt/live/mss.ovh/fullchain.pem',
 };
@@ -96,11 +99,14 @@ const server = new SMTPServer({
     }
 
     const webhooks = mail.to.value
-      .filter(email => email.address.endsWith(`@${options.domain}`))
-      .map(email => email.address.slice(0, -(options.domain.length + 1)))
-      .map(email => decode(email))
+      .map(email => ({
+        email,
+        domain: options.domain.find(value => email.endsWith(`@${value}`)),
+      })) // Find domains which the server will respond to, and add them to the "packet" of sorts
+      .filter(data => data.domain) // Remove packets the server don't respond to
+      .map(email => email.email.address.slice(0, -(email.domain.length + 1))) // Strip domain off
       .filter(hash => !!hash) // Get rid of "broken" and "false" ones
-      .map(hash => options.discord + hash);
+      .map(hash => options.discord + hash); // Append the Discord API uri
 
     if (webhooks.length > 0) {
       const url = webhooks[0];

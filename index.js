@@ -105,6 +105,7 @@ const server = new SMTPServer({
       })) // Find domains which the server will respond to, and add them to the "packet" of sorts
       .filter(data => data.domain) // Remove packets the server don't respond to
       .map(email => email.email.address.slice(0, -(email.domain.length + 1))) // Strip domain off
+      .map(email => decode(email))
       .filter(hash => !!hash) // Get rid of "broken" and "false" ones
       .map(hash => options.discord + hash); // Append the Discord API uri
 

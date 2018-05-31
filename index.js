@@ -20,7 +20,7 @@ const options = {
 const execute = (mail, info) => new Promise((resolve, reject) => {
   let from = '';
   let text = '';
-  let fields = [];
+  const fields = [];
   let truncated = false;
 
   // Add attatchments to archive

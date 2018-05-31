@@ -114,11 +114,12 @@ const server = new SMTPServer({
         await execute(mail, url);
         return callback();
       } catch (e) {
-        e.responseCode = 552;
+        error = new Error(`Something failed. Is your webhook ${url}? ${e.message}`);
+        error.responseCode = 552;
         console.log('=======================');
         console.log('Error report');
         console.log('Error: ', e.message);
-        return callback(e);
+        return callback(error);
       }
     } else {
       error = new Error('The webhook encoded E-Mail address was invalid. If you believe this is an error, please visit https://discordmail.com/');

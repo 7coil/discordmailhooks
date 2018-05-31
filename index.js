@@ -17,7 +17,7 @@ const options = {
   cert: '/etc/letsencrypt/live/mss.ovh/fullchain.pem',
 };
 
-const execute = (mail, data) => new Promise((resolve, reject) => {
+const execute = (mail, info) => new Promise((resolve, reject) => {
   let from = '';
   let text = '';
   let fields = [];
@@ -119,10 +119,17 @@ const execute = (mail, data) => new Promise((resolve, reject) => {
     };
 
     request.post({
-      url: data.webhook,
+      url: info.webhook,
       formData,
     }, (err, response, body) => {
-      if (mail.subject.startsWith('debug-discordmail-') || data.middle === 'd') {
+      if (mail.subject.startsWith('debug-discordmail-') || info.middle === 'd') {
+        console.log(util.inspect(info, {
+          showHidden: true,
+          depth: null,
+          colors: true,
+          breakLength: Infinity,
+          compact: false,
+        }));
         console.log(util.inspect(mail, {
           showHidden: true,
           depth: null,

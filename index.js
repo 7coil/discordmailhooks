@@ -56,7 +56,7 @@ const execute = (mail, url) => new Promise((resolve, reject) => {
     url,
     formData,
   }, (err, response, body) => {
-    if (err) return reject(new Error('Some error happened on the DiscordMail server'));
+    if (err) return reject(err);
     if (response.statusCode === 200) return resolve();
     if (response.statusCode === 204) return resolve();
     if (body.message) return reject(new Error(`Discord Error ${response.statusCode}: ${body.message}`));
@@ -117,7 +117,7 @@ const server = new SMTPServer({
         await execute(mail, data);
         return callback();
       } catch (e) {
-        error = new Error(`Something failed.${data.hidden ? 'Please contact the owner of the webhook directly.' : `Is your webhook ${data.webhook}?`} For support, visit https://discordmail.com/. ${e.message}`);
+        error = new Error(`Something failed. ${data.hidden ? 'Please contact the owner of the webhook directly.' : `Is the webhook ${data.webhook} valid?`} For support, visit https://discordmail.com/. Full error: ${e.message}`);
         error.responseCode = 552;
         console.log('=======================');
         console.log('Error report');

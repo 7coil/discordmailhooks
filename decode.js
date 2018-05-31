@@ -1,7 +1,7 @@
 const { Uint64LE } = require('int64-buffer');
 const fs = require('fs');
 
-const emailregex = /([\u2800-\u28FF]+)\+([\u2800-\u28FF]+)/;
+const emailregex = /([\u2800-\u28FF]+)(.)([\u2800-\u28FF]+)/;
 
 const decode = (text) => {
   const emails = JSON.parse(fs.readFileSync('./emails.json'));
@@ -9,6 +9,7 @@ const decode = (text) => {
     return {
       decoded: emails[text],
       hidden: true,
+      middle: '+',
     };
   }
 
@@ -23,8 +24,8 @@ const decode = (text) => {
     id.push(parts[1].charCodeAt(i) - 0x2800);
   }
 
-  for (let i = 0; i < parts[2].length; i += 1) {
-    auth.push(parts[2].charCodeAt(i) - 0x2800);
+  for (let i = 0; i < parts[3].length; i += 1) {
+    auth.push(parts[3].charCodeAt(i) - 0x2800);
   }
 
   decoded += new Uint64LE(id).toString(10);
@@ -34,6 +35,7 @@ const decode = (text) => {
   return {
     decoded,
     hidden: false,
+    middle: parts[2],
   };
 };
 

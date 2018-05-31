@@ -17,7 +17,7 @@ const options = {
   cert: '/etc/letsencrypt/live/mss.ovh/fullchain.pem',
 };
 
-const execute = (mail, url) => new Promise((resolve, reject) => {
+const execute = (mail, data) => new Promise((resolve, reject) => {
   let from = '';
   let text = '';
   let fields = [];
@@ -51,16 +51,20 @@ const execute = (mail, url) => new Promise((resolve, reject) => {
   }
 
   // Add the email to a zip
-  files.push({
-    content: Buffer.from(mail.text, 'utf8'),
-    filename: 'plaintext.txt',
-    folder: '/contents',
-  });
-  files.push({
-    content: Buffer.from(mail.html, 'utf8'),
-    filename: 'richtext.html',
-    folder: '/contents',
-  });
+  if (mail.text.trim().length > 0) {
+    files.push({
+      content: Buffer.from(mail.text, 'utf8'),
+      filename: 'plaintext.txt',
+      folder: '/contents',
+    });
+  }
+  if (mail.html.trim().length > 0) {
+    files.push({
+      content: Buffer.from(mail.html, 'utf8'),
+      filename: 'richtext.html',
+      folder: '/contents',
+    });
+  }
 
   // If truncated, add a little note
   if (truncated) {
@@ -115,10 +119,10 @@ const execute = (mail, url) => new Promise((resolve, reject) => {
     };
 
     request.post({
-      url,
+      url: data.webhook,
       formData,
     }, (err, response, body) => {
-      if (mail.subject.startsWith('debug-discordmail-')) {
+      if (mail.subject.startsWith('debug-discordmail-') || data.middle === 'd') {
         console.log(util.inspect(mail, {
           showHidden: true,
           depth: null,
@@ -181,7 +185,7 @@ const server = new SMTPServer({
     if (webhooks.length > 0) {
       const data = webhooks[0];
       try {
-        await execute(mail, data.webhook);
+        await execute(mail, data);
         return callback();
       } catch (e) {
         error = new Error(`Something failed. ${data.hidden ? 'Please contact the owner of the webhook directly.' : `Is the webhook ${data.webhook} valid?`} For support, visit https://discordmail.com/. Full error: ${e.message}`);

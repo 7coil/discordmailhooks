@@ -114,7 +114,7 @@ const server = new SMTPServer({
     if (webhooks.length > 0) {
       const data = webhooks[0];
       try {
-        await execute(mail, data);
+        await execute(mail, data.webhook);
         return callback();
       } catch (e) {
         error = new Error(`Something failed. ${data.hidden ? 'Please contact the owner of the webhook directly.' : `Is the webhook ${data.webhook} valid?`} For support, visit https://discordmail.com/. Full error: ${e.message}`);

@@ -101,7 +101,7 @@ const server = new SMTPServer({
     const webhooks = mail.to.value
       .map(email => ({
         email,
-        domain: options.domain.find(value => email.endsWith(`@${value}`)),
+        domain: options.domain.find(value => email.address.endsWith(`@${value}`)),
       })) // Find domains which the server will respond to, and add them to the "packet" of sorts
       .filter(data => data.domain) // Remove packets the server don't respond to
       .map(email => email.email.address.slice(0, -(email.domain.length + 1))) // Strip domain off

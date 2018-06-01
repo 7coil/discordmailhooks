@@ -49,6 +49,10 @@ client.once('ready', () => {
               message.mss.command &&
               message.mss.admin >= commands[message.mss.command].admin) {
       commands[message.mss.command].command(message, client);
+    } else if (message.mss &&
+              message.mss.command &&
+              message.mss.admin < commands[message.mss.command].admin) {
+      message.channel.createMessage(message.__('err_low'));
     }
   });
 });

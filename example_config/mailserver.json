@@ -1,0 +1,10 @@
+{
+  "banner": "Welcome to DiscordMailHooks! https://discordmail.com/ https://moustacheminer.com/ https://discord.gg/wHgdmf4",
+  "discord": "https://canary.discordapp.com/api/webhooks/",
+  "domain": [
+    "mss.ovh",
+    "discordmail.com"
+  ],
+  "key": "/etc/letsencrypt/live/mss.ovh/privkey.pem",
+  "cert": "/etc/letsencrypt/live/mss.ovh/fullchain.pem"
+}

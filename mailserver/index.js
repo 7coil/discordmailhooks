@@ -6,17 +6,7 @@ const request = require('request');
 const Zip = require('jszip');
 const util = require('util');
 const h2p = require('html2plaintext');
-
-const options = {
-  banner: 'Welcome to DiscordMailHooks! https://discordmail.com/ https://moustacheminer.com/ https://discord.gg/wHgdmf4',
-  discord: 'https://canary.discordapp.com/api/webhooks/',
-  domain: [
-    'mss.ovh',
-    'discordmail.com',
-  ],
-  key: '/etc/letsencrypt/live/mss.ovh/privkey.pem',
-  cert: '/etc/letsencrypt/live/mss.ovh/fullchain.pem',
-};
+const options = require('./../config/mailserver.json');
 
 const execute = (mail, info) => new Promise((resolve, reject) => {
   let from = '';

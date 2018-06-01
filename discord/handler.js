@@ -68,7 +68,7 @@ module.exports = async (message) => {
     mss.admin = 3;
   } else if (message.member && message.member.permission.has('administrator')) {
     mss.admin = 2;
-  } else if (message.member && (message.member.permission.has('kickMembers') || message.member.permission.has('banMembers'))) {
+  } else if (message.member && message.member.permission.has('manageWebhooks')) {
     mss.admin = 1;
   }
 

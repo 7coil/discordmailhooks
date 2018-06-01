@@ -1,0 +1,31 @@
+{
+	"api": {
+		"discord": {
+			"clientID": "",
+			"clientSecret": "",
+			"scope": ["identify"],
+			"token": ""
+		},
+		"botsdiscordpw": "",
+		"discordbotsorg": ""
+	},
+	"discord": {
+		"prefix": [
+			"dmail"
+		],
+		"admins": [
+			"190519304972664832"
+		],
+		"disable": false,
+		"shards": 1
+	},
+	"url": {
+		"discord": "https://discord.gg/wHgdmf4",
+		"invite": "https://discordapp.com/oauth2/authorize?&client_id=330003632298917889&scope=bot&permissions=536870912",
+		"github": "https://github.com/moustacheminer/discordmailhooks/",
+		"website": "https://discordmail.com/"
+	},
+	"name": "DiscordMailHooks",
+	"useragent": "DiscordMailHooks/1.0 (node.js; Linux x86_64)",
+  "domain": "discordmail.com"
+}

@@ -23,6 +23,7 @@ const execute = (mail, info) => new Promise((resolve, reject) => {
   let text = '';
   const fields = [];
   let truncated = false;
+  let usingHTML = false;
 
   // Add attatchments to archive
   const files = mail.attachments.map(file => ({
@@ -68,8 +69,10 @@ const execute = (mail, info) => new Promise((resolve, reject) => {
     } else if (plainText.length > 2048) {
       text = `${plainText.text.substring(0, 1000)}...`;
       truncated = true;
+      usingHTML = true;
     } else {
       text = plainText;
+      usingHTML = true;
     }
   } else {
     text = 'Empty E-Mail';
@@ -96,6 +99,14 @@ const execute = (mail, info) => new Promise((resolve, reject) => {
     fields.push({
       name: 'Note',
       value: 'One or more fields have been truncated. Truncated contents can be viewed in the `.zip` file, under the `contents` folder.',
+    });
+  }
+
+  // If using HTML to Plain Text, add a note
+  if (usingHTML) {
+    fields.push({
+      name: 'Note',
+      value: 'The above text is a rough conversion from the original copy. To view the original, open the `.zip` file, go into the `contents` folder, and open `richtext.html`.',
     });
   }
 

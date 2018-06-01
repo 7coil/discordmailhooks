@@ -9,6 +9,7 @@
 	"err_ratelimit": "To help prevent abuse for this bot, you are being ratelimited. Please wait for {{ time }}s.",
 	"err_dm": "The bot detected that it cannot send DMs to your account.",
 	"err_guild": "This command is restricted to guilds only.",
+	"err_low": "You do not have enough permissions to run this command",
 	"invite": "Invite",
 	"guild": "Guild",
 	"lang_en-gb": "English (United Kingdom)",

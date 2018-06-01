@@ -137,40 +137,36 @@ const description = `
 
 <div id="discordmail" class="burple">
   <div class="dmcontainer">
-    <h2 class="dmh2">The Discord to E-Mail Bot, powered by Mailgun</h2>
-    <h5 class="dmh5">DiscordMail links your Discord account to a unique E-Mail address, opening the reach of Discord to be able to communicate to a wider range of of people.</h5>
+    <h2 class="dmh2">The E-Mail to Webhook service</h2>
+    <h5 class="dmh5">DiscordMail links a unique E-Mail address to a Discord Webhook, allowing you to send E-Mails to a Discord channel directly.</h5>
   </div>
   <svg class="bordering greyple" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon class="burplef" points="0,0 0,100 100,0"></polygon></svg>
   <div class="greyple">
     <div class="dmcontainer blacktext">
       <h4 class="dmh4">Statistics</h4>
-      <p id="dmguilds">Loading Guilds</p>
-      <p id="dmusers">Loading Users</p>
-      <p id="dmregistered">Loading Registrations</p>
+      <p><i>None</i></p>
     </div>
   </div>
   <svg class="bordering dgrey" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon class="greyplef" points="0,0 0,100 100,0"></polygon></svg>
   <div class="dgrey lastbox">
     <div class="dmcontainer">
-      <h3 class="dmh3">Create an account today!</h3>
-      <h4 class="dmh4">Invite the bot and type 'dmail register'</h4>
-      <button onclick="window.open('https://discordapp.com/oauth2/authorize?client_id=330003632298917889&amp;scope=bot&amp;permissions=0', '_blank')" class="ui labeled icon button dmbutton">
+      <h3 class="dmh3">Create a webhook today!</h3>
+      <h4 class="dmh4">Invite the bot and type 'dmailregister'</h4>
+      <button onclick="window.open('https://discordapp.com/oauth2/authorize?client_id=330003632298917889&amp;scope=bot&amp;permissions=536870912', '_blank')" class="ui labeled icon button dmbutton">
         <i class="mouse pointer icon"></i>
         Invite
       </button>
-      <p>By registering with DiscordMail, you fully agree to the contents of the Terms of Service and Privacy Agreement, found in the documentation.</p>
-      <p><a href="https://discordmail.com/docs">Documentation</a></p>
-      <p><a href="https://discordmail.com/docs/url/github">GitHub</a></p>
+      <p>By registering with DiscordMailHooks, you fully agree to the contents of the Terms of Service and Privacy Agreement, found in the bottom of our homepage.</p>
+      <p><a href="https://discordmail.com/">Terms</a></p>
+      <p><a href="https://github.com/moustacheminer/discordmailhooks">GitHub</a></p>
     </div>
   </div>
   <div class="dark">
     <div class="dmcontainer left">
       <ul>
-        <li><a href="https://discordmail.com/docs/terms">Terms of Service</a></li>
-        <li><a href="https://discordmail.com/docs/privacy">Privacy Agreement</a></li>
-        <li><a href="https://discordmail.com/url/github" target="_blank">GitHub</a></li>
+        <li><a href="https://discordmail.com">DiscordMail</a></li>
+        <li><a href="https://github.com/moustacheminer" target="_blank">GitHub for Moustacheminer</a></li>
         <li><a href="https://moustacheminer.com/" target="_blank">Moustacheminer Server Services</a></li>
-        <li><a href="https://discordmail.com/lang">Languages / Internationalisation</a></li>
       </ul>
     </div>
   </div>

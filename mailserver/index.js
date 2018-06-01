@@ -5,6 +5,7 @@ const decode = require('./../helpers/decode');
 const request = require('request');
 const Zip = require('jszip');
 const util = require('util');
+const h2p = require('html2plaintext');
 
 const options = {
   banner: 'Welcome to DiscordMailHooks! https://discordmail.com/ https://moustacheminer.com/ https://discord.gg/wHgdmf4',
@@ -48,6 +49,30 @@ const execute = (mail, info) => new Promise((resolve, reject) => {
     truncated = true;
   } else {
     ({ text } = mail);
+  }
+
+  // Venn Diagram - See /docs/plaintext.xcf (gimp)
+  if (mail.text) {
+    if (mail.text.trim().length === 0) {
+      text = 'Empty E-Mail';
+    } else if (mail.text.length > 2048) {
+      text = `${mail.from.text.substring(0, 1000)}...`;
+      truncated = true;
+    } else {
+      ({ text } = mail);
+    }
+  } else if (mail.html) {
+    const plainText = h2p(mail.html);
+    if (plainText.trim().length === 0) {
+      text = 'Empty E-Mail';
+    } else if (plainText.length > 2048) {
+      text = `${plainText.text.substring(0, 1000)}...`;
+      truncated = true;
+    } else {
+      text = plainText;
+    }
+  } else {
+    text = 'Empty E-Mail';
   }
 
   // Add the email to a zip

@@ -210,7 +210,7 @@ const load = () => {
     image: getClass('bot-img').firstChild.src,
     header: getClass('bot-name').innerHTML,
     lib: getClass('lib').innerHTML,
-    servers: getClass('servers btn btn-orange btn-2x').innerHTML,
+    // servers: getClass('servers btn btn-orange btn-2x').innerHTML,
     statustext: getClass('status').innerHTML,
     statustype: getClass('status').classList[1],
     shortdesc: getClass('bot-description').innerHTML,
@@ -286,7 +286,7 @@ const load = () => {
   document.getElementById('dblimage').src = dbl.image;
   document.getElementById('dblheader').innerHTML = dbl.header;
   document.getElementById('dbllib').innerHTML = dbl.lib;
-  document.getElementById('dblservers').innerHTML = dbl.servers;
+  // document.getElementById('dblservers').innerHTML = dbl.servers;
   document.getElementById('dblstatus').innerHTML = dbl.statustext;
   document.getElementById('dblstatus').classList.add(dbl.statustype);
   document.getElementById('shortDESU').innerHTML = dbl.shortdesc;

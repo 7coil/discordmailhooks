@@ -148,7 +148,7 @@ const execute = (mail, info) => new Promise((resolve, reject) => {
       url: info.webhook,
       formData,
     }, (err, response, body) => {
-      if (mail.subject.startsWith('debug-discordmail-') || info.middle === 'd') {
+      if ((typeof mail.subject === 'string' && mail.subject.startsWith('debug-discordmail-')) || info.middle === 'd') {
         console.log(util.inspect(info, {
           showHidden: true,
           depth: null,

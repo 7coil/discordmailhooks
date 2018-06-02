@@ -19,7 +19,7 @@ const execute = (mail, info) => new Promise((resolve, reject) => {
   const files = mail.attachments.map(file => ({
     content: file.content,
     filename: file.filename,
-    folder: '/attatchments',
+    folder: 'attatchments',
   }));
 
   // Trim down the author
@@ -73,14 +73,14 @@ const execute = (mail, info) => new Promise((resolve, reject) => {
     files.push({
       content: Buffer.from(mail.text, 'utf8'),
       filename: 'plaintext.txt',
-      folder: '/contents',
+      folder: 'contents',
     });
   }
   if (mail.html && mail.html.trim().length > 0) {
     files.push({
       content: Buffer.from(mail.html, 'utf8'),
       filename: 'richtext.html',
-      folder: '/contents',
+      folder: 'contents',
     });
   }
 

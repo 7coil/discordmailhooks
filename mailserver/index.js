@@ -15,11 +15,11 @@ const execute = (mail, info) => new Promise((resolve, reject) => {
   let truncated = false;
   let usingHTML = false;
 
-  // Add attatchments to archive
+  // Add attachments to archive
   const files = mail.attachments.map(file => ({
     content: file.content,
     filename: file.filename,
-    folder: 'attatchments',
+    folder: 'attachments',
   }));
 
   // Trim down the author
@@ -100,11 +100,11 @@ const execute = (mail, info) => new Promise((resolve, reject) => {
     });
   }
 
-  // If the email had attatchments, add a little note
+  // If the email had attachments, add a little note
   if (mail.attachments.length > 0) {
     fields.push({
-      name: 'Attatchments',
-      value: 'You have attatchments. These can be viewed in the `.zip` file, under the `attatchments` folder.',
+      name: 'Attachments',
+      value: 'You have attachments. These can be viewed in the `.zip` file, under the `attachments` folder.',
     });
   }
 
@@ -189,7 +189,7 @@ const server = new SMTPServer({
     const mail = await simpleParser(stream);
     let error;
 
-    // Check if the attatchment or zip will be too big
+    // Check if the attachment or zip will be too big
     if (mail.attachments && mail.attachments.reduce((acc, cur) => acc + cur, 0) > 8000000) {
       error = new Error('Your files are too powerful! Max file size 8.00Mb please.');
       error.responseCode = 552;

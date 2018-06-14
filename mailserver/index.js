@@ -108,7 +108,7 @@ const execute = (mail, info) => new Promise((resolve, reject) => {
     });
   }
 
-  // Zip all files and attatchments
+  // Zip all files and attachments
   const zip = new Zip();
   files.forEach((file) => {
     zip.folder(file.folder).file(file.filename, file.content);

@@ -89,7 +89,7 @@ module.exports = [{
     } else if (message.mss.input && cogs.categories[message.mss.input]) {
       message.channel.createMessage({
         embed: {
-          title: message.mss.input,
+          title: message.t(message.mss.input),
           fields: cogs.categories[message.mss.input]
             .filter(command => message.mss.admin >= command.admin)
             .map(command => ({
@@ -101,7 +101,7 @@ module.exports = [{
     } else if (!message.mss.input) {
       // If there is no input, make a "field" for each category to embed, with a list of commands
       const fields = Object.keys(cogs.categories).map(category => ({
-        name: category,
+        name: `\`${category}\` - ${message.t(category)}`,
         value: cogs.categories[category]
           .filter(command => message.mss.admin >= command.admin)
           .map(command => command.aliases[0])

@@ -24,6 +24,7 @@
 	"lang_blank": "DiscordMailHooks Development Language",
 	"system": "System Commands",
 	"email": "E-Mail Commands",
+	"fun": "The \"Why the hell does DiscordMail have these commands\" commands",
 	"encode": "Encode",
 	"encode_desc": "Encode a Discord Webhook",
 	"encode_1_in": "{{ prefix }}{{ command }} https:\\/\\/discordapp.com/api/webhooks/1234567890/abcdefghijklmnopqrstuvwxyz",

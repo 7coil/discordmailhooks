@@ -71,6 +71,9 @@
 	"help_3_in": "{{ prefix }}{{ command }} [category]",
 	"help_3_out": "Get commands in the category",
 	"help_invalid": "Invalid category or command.",
+	"help_menu_title": "DiscordMail Help Menu",
+	"help_menu_description": "DiscordMailHooks allows you to easily register your DiscordMail email",
+	"help_menu_footer": "Type `{{ prefix }} [command]` or `{{ prefix }} [category]` for more help.",
 	"locale": "Internationalisation",
 	"locale_desc": "Change your internationalisation settings",
 	"locale_1_in": "{{ prefix }}{{ command }}",
@@ -89,5 +92,10 @@
 	"info_hard": "Hardware",
 	"info_soft": "Software",
 	"info_licence": "Licence",
-	"info_licencedesc": "{{{ name }}}, an instance of [DiscordMailHooks](https://discordmail.com/) is licenced under the MIT Licence."
+	"info_licencedesc": "{{{ name }}}, an instance of [DiscordMailHooks](https://discordmail.com/) is licenced under the MIT Licence.",
+	"mei": "mei",
+	"mei_desc": "Send a random picture of some cute yuri from [/r/wholesomeyuri](https://reddit.com/r/wholesomeyuri)",
+	"mei_1_in": "{{ prefix }}{{ command }}",
+	"mei_1_out": "uwu fill the server with cuuuutte :3 awooo",
+	"mei_no_list": "uwu reddit didn't give a listing"
 }

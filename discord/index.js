@@ -17,6 +17,9 @@ i18n.configure({
   defaultLocale: 'en-gb',
   autoReload: true,
   updateFiles: false,
+  api: {
+    __: 't',
+  },
 });
 
 const prefixes = config.discord.prefix;
@@ -44,7 +47,7 @@ client.once('ready', () => {
     if (message.mss &&
         message.mss.command &&
         commands[message.mss.command].guild && !message.member) {
-      message.channel.createMessage(message.__('err_guild'));
+      message.channel.createMessage(message.t('err_guild'));
     } else if (message.mss &&
               message.mss.command &&
               message.mss.admin >= commands[message.mss.command].admin) {
@@ -52,7 +55,7 @@ client.once('ready', () => {
     } else if (message.mss &&
               message.mss.command &&
               message.mss.admin < commands[message.mss.command].admin) {
-      message.channel.createMessage(message.__('err_low'));
+      message.channel.createMessage(message.t('err_low'));
     }
   });
 });

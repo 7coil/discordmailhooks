@@ -14,11 +14,11 @@ module.exports = [{
     const encoded = encode(message.mss.input);
 
     if (encoded) {
-      message.channel.createMessage(message.__('register_email', {
+      message.channel.createMessage(message.t('register_email', {
         email: `${encoded}@${config.domain}`,
       }));
     } else {
-      message.channel.createMessage(message.__('encode_invalid'));
+      message.channel.createMessage(message.t('encode_invalid'));
     }
   },
 }, {
@@ -32,9 +32,9 @@ module.exports = [{
     const decoded = decode(message.mss.input);
 
     if (decoded) {
-      message.channel.createMessage(`**URL:** ${decoded.hidden ? 'Protected' : decoded.decoded}\n**${message.__('decode_mode')}** ${message.__(modes[decoded.middle]) || message.__('mode_unknown')}`);
+      message.channel.createMessage(`**URL:** ${decoded.hidden ? 'Protected' : decoded.decoded}\n**${message.t('decode_mode')}** ${message.t(modes[decoded.middle]) || message.t('mode_unknown')}`);
     } else {
-      message.channel.createMessage(message.__('decode_invalid'));
+      message.channel.createMessage(message.t('decode_invalid'));
     }
   },
 }, {
@@ -50,7 +50,7 @@ module.exports = [{
       const self = guild.members.get(client.user.id);
 
       if (!self) {
-        message.channel.createMessage(message.__('register_err_self'));
+        message.channel.createMessage(message.t('register_err_self'));
       } else if (self.permission.has('administrator') || self.permission.has('manageWebhooks')) {
         message.channel.createWebhook({
           name: config.name,
@@ -58,15 +58,15 @@ module.exports = [{
         }, `${message.author.username} (${message.author.id})`)
           .then((webhook) => {
             const encoded = encode(`${webhook.channel_id}/${webhook.token}`);
-            message.channel.createMessage(message.__('register_email', {
+            message.channel.createMessage(message.t('register_email', {
               email: `${encoded}@${config.domain}`,
             }));
           });
       } else {
-        message.channel.createMessage(`${message.__('register_err_perms')}\n${config.url.website}`);
+        message.channel.createMessage(`${message.t('register_err_perms')}\n${config.url.website}`);
       }
     } else {
-      message.channel.createMessage(message.__('register_err_guild'));
+      message.channel.createMessage(message.t('register_err_guild'));
     }
   },
 }];

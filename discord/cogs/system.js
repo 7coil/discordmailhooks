@@ -22,7 +22,7 @@ module.exports = [{
 
       message.channel.createMessage(`\`\`\`\n${client.shards.map(shard => `${s === shard.id ? '>' : ' '}Shard ${shard.id} | ${shard.latency}ms`).join('\n')}\n\`\`\``);
     } else {
-      message.channel.createMessage(message.__('ping_nomap'));
+      message.channel.createMessage(message.t('ping_nomap'));
     }
   },
 }, {
@@ -57,7 +57,7 @@ module.exports = [{
           output += `${stderr.replace(/`/g, '\'')}\n`;
         }
 
-        message.channel.createMessage(`\n${message.__('exec_output')}\n\`\`\`\n${output}\`\`\``);
+        message.channel.createMessage(`\n${message.t('exec_output')}\n\`\`\`\n${output}\`\`\``);
       });
     }
   },
@@ -74,15 +74,15 @@ module.exports = [{
       const fields = [];
       for (let i = 1; i <= command.uses; i += 1) {
         fields.push({
-          name: message.__(`${command.name}_${i}_in`, { prefix: message.mss.prefix, command: command.name }),
-          value: message.__(`${command.name}_${i}_out`),
+          name: message.t(`${command.name}_${i}_in`, { prefix: message.mss.prefix, command: command.name }),
+          value: message.t(`${command.name}_${i}_out`),
         });
       }
 
       message.channel.createMessage({
         embed: {
-          title: message.__(command.name),
-          description: message.__(`${command.name}_desc`),
+          title: message.t(command.name),
+          description: message.t(`${command.name}_desc`),
           fields,
         },
       });
@@ -94,26 +94,35 @@ module.exports = [{
             .filter(command => message.mss.admin >= command.admin)
             .map(command => ({
               name: command.aliases[0],
-              value: message.__(`${command.name}_desc`),
+              value: message.t(`${command.name}_desc`),
             })),
         },
       });
     } else if (!message.mss.input) {
-      Object.keys(cogs.categories).forEach((category) => {
-        message.channel.createMessage({
-          embed: {
-            title: category,
-            fields: cogs.categories[category]
-              .filter(command => message.mss.admin >= command.admin)
-              .map(command => ({
-                name: command.aliases[0],
-                value: message.__(`${command.name}_desc`),
-              })),
+      // If there is no input, make a "field" for each category to embed, with a list of commands
+      const fields = Object.keys(cogs.categories).map(category => ({
+        name: category,
+        value: cogs.categories[category]
+          .filter(command => message.mss.admin >= command.admin)
+          .map(command => command.aliases[0])
+          .map(name => `\`${name}\``)
+          .join(', '),
+      }));
+
+      message.channel.createMessage({
+        embed: {
+          title: message.t('help_menu_title'),
+          description: message.t('help_menu_description'),
+          fields,
+          footer: {
+            text: message.t('help_menu_footer', {
+              prefix: message.mss.prefix,
+            }),
           },
-        });
+        },
       });
     } else {
-      message.channel.createMessage(message.__('help_invalid'));
+      message.channel.createMessage(message.t('help_invalid'));
     }
   },
 }, {
@@ -128,31 +137,31 @@ module.exports = [{
       embed: {
         fields: [
           {
-            name: message.__('info_nodejs'),
+            name: message.t('info_nodejs'),
             value: process.version,
             inline: true,
           },
           {
-            name: message.__('info_guilds'),
+            name: message.t('info_guilds'),
             value: client.guilds.size,
             inline: true,
           },
           {
-            name: message.__('info_pid'),
+            name: message.t('info_pid'),
             value: process.pid,
             inline: true,
           },
           {
-            name: message.__('info_hard'),
+            name: message.t('info_hard'),
             value: hardwareinfo,
           },
           {
-            name: message.__('info_soft'),
+            name: message.t('info_soft'),
             value: softwareinfo,
           },
           {
-            name: message.__('info_licence'),
-            value: message.__('info_licencedesc', { name: message.__('name') }),
+            name: message.t('info_licence'),
+            value: message.t('info_licencedesc', { name: message.t('name') }),
           },
         ],
       },

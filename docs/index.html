@@ -1,50 +1,10 @@
 <html>
     <head>
         <link href="https://modesta.alexflipnote.xyz/css/modesta.css" type="text/css" rel="stylesheet">
+        <link href="css/index.css" type="text/css" rel="stylesheet">
         <meta charset="UTF-8">
         <meta name="description" content="Recieve E-Mails from a Discord Webhook with DiscordMailHooks">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
-            body {
-                display: flex;
-                flex-direction: column;
-                width: 90vw;
-                margin: auto;
-                text-align: center;
-                align-items: center;
-                justify-content: center;
-                padding-top: 10em;
-                padding-bottom: 10em;
-            }
-
-            input {
-                width: 80%;
-                box-sizing: border-box;
-            }
-            
-            #mail_input::placeholder {
-                color: white;
-                opacity: 1;
-            }
-
-            #mail_input:focus::placeholder {
-                color: transparent;
-                opacity: 0;
-            }
-
-            #mail_output {
-                color: black;
-                font-size: 8pt;
-            }
-
-            #mail_output::placeholder {
-                font-size: 12pt;
-            }
-
-            .row {
-                width: 100%
-            }
-        </style>
     </head>
     <body>
         <h1>DiscordMailHooks</h1>
@@ -54,9 +14,19 @@
                 <input class="btn" type="text" id="mail_input" data-url="discordmail.com" placeholder="Paste a webhook in this box."><br />
                 <input class="btn white" type="text" id="mail_output" placeholder="E-Mail will appear here." onClick="copyEmail()"><br />
                 <i>Click E-Mail to copy.</i>
+                <p>You can use one of the following domains:</p>
+                <select id="domain_select">
+                    <option value="discordmail.com" default>discordmail.com</li>
+                    <option value="discordbots.co.uk">discordbots.co.uk</li>
+                    <option value="discordbots.uk">discordbots.uk</li>
+                    <option value="mss.ovh">mss.ovh</li>
+                </select>
             </div>
-            <p>For support, try <a href="https://discordapp.com/invite/wHgdmf4">here</a>.</p>
+            <p>For support, try <a href="https://discordapp.com/invite/wHgdmf4">this Discord server</a>.</p>
             <p><a href="https://moustacheminer.com">moustacheminer.com</a></p>
+        </div>
+        <div class="row">
+            <h2>How to use this website</h2>
             <iframe width="560" height="315" src="https://www.youtube.com/embed/A4a4aLlBnDc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
         <h1>Terms and Conditions and Privacy Agreement</h1>

@@ -1,0 +1,48 @@
+body {
+    display: flex;
+    flex-direction: column;
+    width: 90vw;
+    margin: auto;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    padding-top: 10em;
+    padding-bottom: 10em;
+}
+
+input {
+    width: 80%;
+    box-sizing: border-box;
+}
+
+#mail_input {
+    background-color: transparent;
+}
+
+#mail_input::placeholder {
+    color: white;
+    opacity: 1;
+}
+
+#mail_input:focus::placeholder {
+    color: transparent;
+    opacity: 0;
+}
+
+#mail_output {
+    color: black;
+    font-size: 8pt;
+}
+
+#mail_output::placeholder {
+    font-size: 12pt;
+}
+
+.row {
+    width: 100%
+}
+
+ul, li {
+  list-style: none;
+  padding: 0;
+}

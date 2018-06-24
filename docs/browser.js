@@ -3,7 +3,8 @@
 
 const input = document.getElementById('mail_input');
 const output = document.getElementById('mail_output');
-const urlregex = /(\d{10,30})\/+(.+)/g;
+const domain = document.getElementById('domain_select');
+const urlregex = /(\d{10,30})\/+(.+)/;
 let email = '';
 
 const encode = (text) => {
@@ -27,12 +28,15 @@ const encode = (text) => {
   return encoded;
 };
 
-input.addEventListener('input', () => {
+const run = () => {
   email = encode(input.value);
   if (email) {
-    output.value = `${email}@${input.dataset.url}`;
+    output.value = `${email}@${domain.value}`;
   }
-});
+};
+
+input.addEventListener('input', run);
+domain.addEventListener('change', run);
 
 window.copyEmail = () => {
   output.select();

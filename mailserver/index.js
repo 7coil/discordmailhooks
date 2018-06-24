@@ -202,8 +202,13 @@ const server = new SMTPServer({
       return callback(error);
     }
 
+    const checkMails = [];
+
     // Create a list of emails to check for the webhook
-    const checkMails = mail.to.value.map(email => email.address);
+    if (mail.to) {
+      // Expand the list and push into the list to check
+      checkmails.push([...mail.to.value.map(email => email.address)]);
+    }
 
     // Add forwarded E-Mails to the list of emails to check
     if (mail.headers.get('x-forwarded-to')) {

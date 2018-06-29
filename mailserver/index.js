@@ -7,6 +7,7 @@ const Zip = require('jszip');
 const util = require('util');
 const h2p = require('html2plaintext');
 const options = require('./../config/mailserver.json');
+require('./../helpers/logo');
 
 const execute = (mail, info) => new Promise((resolve, reject) => {
   let from = '';

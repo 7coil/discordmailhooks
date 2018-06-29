@@ -6,6 +6,7 @@ const handler = require('./handler');
 const botlist = require('./botlist');
 const i18n = require('i18n');
 const path = require('path');
+require('./../helpers/logo');
 
 const client = new Discord.Client(config.api.discord.token, {
   maxShards: config.discord.shards,

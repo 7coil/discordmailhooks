@@ -7,7 +7,12 @@
 			"token": ""
 		},
 		"botsdiscordpw": "",
-		"discordbotsorg": ""
+		"discordbotsorg": "",
+		"discordfork": {
+			"for": "https://discordbots.co.uk/",
+			"guild": "330777295952543744",
+			"channel": "353911657665396736"
+		}
 	},
 	"discord": {
 		"prefix": [

@@ -32,4 +32,20 @@ module.exports = (client) => {
     };
     request.post(discordbotsorg);
   }
+  if (config.api.discordfork && config.api.discordfork.guild && config.api.discordfork.channel && config.api.discordfork.for) {
+    const guild = client.guilds.get(config.api.discordfork.guild);
+    if (guild) {
+      const channel = guild.channels.get(config.api.discordfork.channel);
+      if (channel) {
+        channel.createMessage(JSON.stringify({
+          for: config.api.discordfork.for,
+          botCount: client.guilds.size
+        })).then(() => {
+          console.log('Posted to Discord Fork');
+        }).catch(() => {
+          console.log('Failed to post to Discord Fork');
+        });
+      }
+    }
+  }
 };

@@ -40,7 +40,7 @@ module.exports = (client) => {
         channel.createMessage(JSON.stringify({
           for: config.api.discordfork.for,
           botCount: client.guilds.size
-        })).then(() => {
+        }, null, 2)).then(() => {
           console.log('Posted to Discord Fork');
         }).catch(() => {
           console.log('Failed to post to Discord Fork');

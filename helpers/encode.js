@@ -2,7 +2,7 @@
 
 const { Uint64LE } = require('int64-buffer');
 
-const urlregex = /(\d{10,30})\/?(.+)/g;
+const urlregex = /(\d{10,30})\/?(.+)/;
 
 const encode = (text) => {
   const parts = urlregex.exec(text);

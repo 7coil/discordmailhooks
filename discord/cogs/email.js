@@ -57,7 +57,7 @@ module.exports = [{
           avatar: 'https://webhooks.discordmail.com/img/DiscordMail.png',
         }, `${message.author.username} (${message.author.id})`)
           .then((webhook) => {
-            const encoded = encode(`${webhook.channel_id}/${webhook.token}`);
+            const encoded = encode(`${webhook.id}/${webhook.token}`);
             message.channel.createMessage(message.t('register_email', {
               email: `${encoded}@${config.domain}`,
             }));

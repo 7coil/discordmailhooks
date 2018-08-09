@@ -206,6 +206,7 @@ const checkDNS = (session) => new Promise((resolve, reject) => {
         .then((values) => {
           const ips = values.reduce((acc, val) => acc.concat(val), []);
           if (ips.some(address => address === ip)) resolve();
+          console.log(ips);
           const error = new Error(`The DiscordMail server could not find any valid MX records for your domain.`);
           error.responseCode = 552;
           reject(error);

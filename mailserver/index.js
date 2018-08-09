@@ -199,23 +199,24 @@ const checkDNS = (session) => new Promise((resolve, reject) => {
       error.responseCode = 552;
       reject(error);
     } else if (addresses) {
-      // If any of the records match the IP, accept the email
-      if (addresses.some(address => address === ip)) resolve();
+      resolve();
+      // // If any of the records match the IP, accept the email
+      // if (addresses.some(address => address === ip)) resolve();
 
-      Promise.all(addresses.map(address => resolver.resolve4(address.exchange)))
-        .then((values) => {
-          const ips = values.reduce((acc, val) => acc.concat(val), []);
-          if (ips.some(address => address === ip)) resolve();
-          console.log(ips);
-          const error = new Error(`The DiscordMail server could not find any valid MX records for your domain.`);
-          error.responseCode = 552;
-          reject(error);
-        })
-        .catch((err2) => {
-          const error = new Error(`The DiscordMail server failed to look up an A record for an MX record.`);
-          error.responseCode = 552;
-          reject(error);
-        });
+      // Promise.all(addresses.map(address => resolver.resolve4(address.exchange)))
+      //   .then((values) => {
+      //     const ips = values.reduce((acc, val) => acc.concat(val), []);
+      //     if (ips.some(address => address === ip)) resolve();
+      //     console.log(ips);
+      //     const error = new Error(`The DiscordMail server could not find any valid MX records for your domain.`);
+      //     error.responseCode = 552;
+      //     reject(error);
+      //   })
+      //   .catch((err2) => {
+      //     const error = new Error(`The DiscordMail server failed to look up an A record for an MX record.`);
+      //     error.responseCode = 552;
+      //     reject(error);
+      //   });
     } else {
       const error = new Error('checkDNS failure');
       error.responseCode = 552;

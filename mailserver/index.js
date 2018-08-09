@@ -7,7 +7,9 @@ const Zip = require('jszip');
 const util = require('util');
 const h2p = require('html2plaintext');
 const options = require('./../config/mailserver.json');
-require('./../helpers/logo');
+const dns = require('dns');
+const { Resolver } = dns.promises;
+const resolver = new Resolver();
 
 const execute = (mail, info) => new Promise((resolve, reject) => {
   let from = '';
@@ -181,14 +183,61 @@ const execute = (mail, info) => new Promise((resolve, reject) => {
   });
 });
 
+const checkDNS = (session) => new Promise((resolve, reject) => {
+  const domain = session.envelope.mailFrom.address.split('@')[1];
+  const ip = session.remoteAddress;
+
+  console.log(domain, ip);
+
+  dns.resolveMx(domain, (err1, addresses) => {
+    if (err1) {
+      const error = new Error(`The DiscordMail server failed to look up the MX record: ${err1.message}`);
+      error.responseCode = 552;
+      reject(error);
+    } else if (addresses && addresses.length === 0) {
+      const error = new Error('The domain provided has no MX records to send from, and cannot be trusted.');
+      error.responseCode = 552;
+      reject(error);
+    } else if (addresses) {
+      // If any of the records match the IP, accept the email
+      if (addresses.some(address => address === ip)) resolve();
+
+      Promise.all(addresses.map(address => resolver.resolve4(address.exchange)))
+        .then((values) => {
+          const ips = values.reduce((acc, val) => acc.concat(val), []);
+          if (ips.some(address => address === ip)) resolve();
+          const error = new Error(`The DiscordMail server could not find any valid MX records for your domain.`);
+          error.responseCode = 552;
+          reject(error);
+        })
+        .catch((err2) => {
+          const error = new Error(`The DiscordMail server failed to look up an A record for an MX record.`);
+          error.responseCode = 552;
+          reject(error);
+        });
+    } else {
+      const error = new Error('checkDNS failure');
+      error.responseCode = 552;
+      reject(error);
+    }
+  });
+});
+
 const server = new SMTPServer({
   key: options.key ? fs.readFileSync(options.key) : null,
   cert: options.cert ? fs.readFileSync(options.cert) : null,
   authOptional: true,
   banner: options.banner,
   async onData(stream, session, callback) {
-    const mail = await simpleParser(stream);
     let error;
+
+    const mail = await simpleParser(stream);
+
+    try {
+      await checkDNS(session);
+    } catch(e) {
+      return callback(e);
+    }
 
     // Check if the attachment or zip will be too big
     if (mail.attachments && mail.attachments.reduce((acc, cur) => acc + cur, 0) > 8000000) {

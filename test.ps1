@@ -1,5 +1,5 @@
-$smtpServer = "127.0.0.1"
-$smtpFrom = "me@alexflipnote.xyz"
+$smtpServer = "discordmail.com"
+$smtpFrom = "me@discord.pw"
 $smtpTo = "lepeli@discordmail.com"
 $messageSubject = "Congratulations"
 $messageBody = "You won a free XSS website!"

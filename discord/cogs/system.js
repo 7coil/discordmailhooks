@@ -117,6 +117,7 @@ module.exports = [{
           footer: {
             text: message.t('help_menu_footer', {
               prefix: message.mss.prefix,
+              command: message.mss.command
             }),
           },
         },

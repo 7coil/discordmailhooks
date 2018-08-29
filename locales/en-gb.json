@@ -74,7 +74,7 @@
 	"help_invalid": "Invalid category or command.",
 	"help_menu_title": "DiscordMail Help Menu",
 	"help_menu_description": "DiscordMailHooks allows you to easily register your DiscordMail email",
-	"help_menu_footer": "Type `{{ prefix }} [command]` or `{{ prefix }} [category]` for more help.",
+	"help_menu_footer": "Type `{{ prefix }} {{command}} [command]` or `{{ prefix }} {{command}} [category]` for more help.",
 	"locale": "Internationalisation",
 	"locale_desc": "Change your internationalisation settings",
 	"locale_1_in": "{{ prefix }}{{ command }}",

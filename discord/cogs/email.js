@@ -46,12 +46,12 @@ module.exports = [{
   admin: 1,
   command: (message, client) => {
     if (message.channel.guild) {
-      const { guild } = message.channel;
       const self = guild.members.get(client.user.id);
+      const overwrites = message.channel.permissionOverwrites.get(client.user.id);
 
       if (!self) {
         message.channel.createMessage(message.t('register_err_self'));
-      } else if (self.permission.has('administrator') || self.permission.has('manageWebhooks')) {
+      } else if (self.permission.has('administrator') || self.permission.has('manageWebhooks') || (overwrites && overwrites.has('manageWebhooks'))) {
         message.channel.createWebhook({
           name: config.name,
           avatar: 'https://webhooks.discordmail.com/img/DiscordMail.png',

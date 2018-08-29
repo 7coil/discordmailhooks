@@ -46,7 +46,7 @@ module.exports = [{
   admin: 1,
   command: (message, client) => {
     if (message.channel.guild) {
-      const self = guild.members.get(client.user.id);
+      const self = message.channel.guild.members.get(client.user.id);
       const overwrites = message.channel.permissionOverwrites.get(client.user.id);
 
       if (!self) {

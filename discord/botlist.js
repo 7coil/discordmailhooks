@@ -11,7 +11,8 @@ module.exports = (client) => {
         guildCount: client.guilds.size
       }),
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: config.api.botsdiscordpw
       }
     })
       .then(res => res.json())
@@ -30,7 +31,8 @@ module.exports = (client) => {
         }
       }),
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: config.api.ls
       }
     })
       .then(res => res.json())

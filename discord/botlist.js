@@ -3,7 +3,7 @@ const config = require('./../config/discord.json');
 
 module.exports = (client) => {
   if (config.api.botsdiscordpw) {
-    fetch(`https://discord.bots.gg/api/bots/${client.user.id}/stats`, {
+    fetch(`https://discord.bots.gg/api/v1/bots/${client.user.id}/stats`, {
       method: 'post',
       body: JSON.stringify({
         guildCount: client.guilds.size

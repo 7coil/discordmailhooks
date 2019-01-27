@@ -253,6 +253,11 @@ const server = new SMTPServer({
       checkMails.push(mail.headers.get('x-forwarded-to'));
     }
 
+    // Include `RCPT TO` emails
+    if (session.envelope.rcptTo.length > 0) {
+      checkMails.push(...session.envelope.rcptTo.map(email => email.address));
+    }
+
     const webhooks = checkMails
       .map(email => ({
         email,

@@ -151,29 +151,6 @@ const execute = (mail, info) => new Promise((resolve, reject) => {
       url: info.webhook,
       formData,
     }, (err, response, body) => {
-      if ((typeof mail.subject === 'string' && mail.subject.startsWith('debug-discordmail-')) || info.middle === 'd') {
-        console.log(util.inspect(info, {
-          showHidden: true,
-          depth: null,
-          colors: true,
-          breakLength: Infinity,
-          compact: false,
-        }));
-        console.log(util.inspect(mail, {
-          showHidden: true,
-          depth: null,
-          colors: true,
-          breakLength: Infinity,
-          compact: false,
-        }));
-        console.log(util.inspect(formData, {
-          showHidden: true,
-          depth: null,
-          colors: true,
-          breakLength: Infinity,
-          compact: false,
-        }));
-      }
       if (err) return reject(err);
       if (response.statusCode === 200) return resolve();
       if (response.statusCode === 204) return resolve();
@@ -252,6 +229,23 @@ const server = new SMTPServer({
       error = new Error('Your subject is too long. Please make your subject shorter. We\'ve set the limit at 256 characters to be courteous to others.');
       error.responseCode = 552;
       return callback(error);
+    }
+
+    if ((typeof mail.subject === 'string' && mail.subject.startsWith('x-dev-'))) {
+      console.log(util.inspect(mail, {
+        showHidden: true,
+        depth: null,
+        colors: true,
+        breakLength: Infinity,
+        compact: false,
+      }));
+      console.log(util.inspect(formData, {
+        showHidden: true,
+        depth: null,
+        colors: true,
+        breakLength: Infinity,
+        compact: false,
+      }));
     }
 
     let checkMails = [];

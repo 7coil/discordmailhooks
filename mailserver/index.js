@@ -239,13 +239,6 @@ const server = new SMTPServer({
         breakLength: Infinity,
         compact: false,
       }));
-      console.log(util.inspect(formData, {
-        showHidden: true,
-        depth: null,
-        colors: true,
-        breakLength: Infinity,
-        compact: false,
-      }));
     }
 
     let checkMails = [];

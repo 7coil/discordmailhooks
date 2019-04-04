@@ -22,6 +22,6 @@
     "mailparser": "^2.2.0",
     "node-fetch": "^2.3.0",
     "request": "^2.87.0",
-    "smtp-server": "^3.4.2"
+    "smtp-server": "^3.5.0"
   }
 }

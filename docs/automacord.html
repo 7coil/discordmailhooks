@@ -1,0 +1,122 @@
+</div>
+</div>
+<div class="container">
+<div>
+<style>
+  /*!
+  * ModestaCSS v1.0.1 (https://modesta.alexflipnote.dev)
+  * Made by AlexFlipnote (https://alexflipnote.dev)
+  * Licensed under GPL-3.0 (https://github.com/AlexFlipnote/ModestaCSS/blob/master/LICENSE)
+  */
+  .background {
+    background-image: url('https://ls.terminal.ink/appdata/b484df1712ff69c5c3ebc1479ca7921e4d3b32b3f08442b794ffc1f7108c0c71.png');
+    background-attachment: fixed;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-filter: blur(5px) brightness(50%);
+    filter: blur(5px) brightness(50%);
+    height: 100%;
+    width: 100%;
+    z-index: -200;
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+  .box-shadow {
+    box-shadow:
+      0 2px 2px 0 rgba(0,0,0,.14),
+      0 3px 1px -2px rgba(0,0,0,.2),
+      0 1px 5px 0 rgba(0,0,0,.12) !important;
+  }
+  /*
+  * ls.terminal.ink Bot List styles
+  * Licensed under GPL-3.0 (https://github.com/Terminal/discordapps.dev/blob/ls13/LICENCE)
+  */
+  .ls-iframe {
+    width: 50vh;
+    border: 0;
+  }
+  .ls-images {
+    display: flex;
+    overflow-x: auto;
+  }
+  .ls-image {
+    height: 30vh;
+    flex-shrink: 0;
+    margin: 5px;
+    border-radius: 5px;
+  }
+  .content-box, .bot-info {
+    box-sizing: border-box;
+    margin: 1.5em auto 2.5em;
+    max-width: 1100px;
+    position: relative;
+    width: 100%;
+    background-color: rgba(42,42,42,.93);
+    padding: 1.5em;
+    border-radius: 0;
+  }
+  @media (max-width: 650px) {
+    .content-box {
+      padding: .5em;
+    }
+  }
+  .bot-avatar {
+    width: 7em;
+    height: 7em;
+    padding-right: 1em;
+    margin-left: 0;
+    border-radius: 0;
+  }
+  /*
+  * My styles
+  */
+  .bot-info {
+    height: unset;
+  }
+  .bot-name {
+    font-size: 3.6rem;
+  }
+  .bot-label {
+    font-size: 1.5em;
+  }
+</style>
+
+<div class="background"></div>
+<div class="box-shadow content-box">
+  <div class="ls-images">
+    <iframe class="ls-iframe ls-image" src="https://www.youtube.com/embed/A4a4aLlBnDc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <img class="ls-image" src="https://ls.terminal.ink/appdata/80418655dca8f1ebd17d93e1b98a25a4b83a55c1cc20748526fe0bef7fa707ab.png" />
+    <img class="ls-image" src="https://ls.terminal.ink/appdata/3866cdaf2a77751edf3f89e33df5db7ead4ec6fe79181f7f6a6256878b7239fe.png" />
+    <iframe class="ls-iframe ls-image" src="https://www.youtube.com/embed/m5qwcYL8a0o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+<div class="box-shadow content-box">
+  <h3 id="recieve-e-mails-via-a-discord-channel">Recieve E-Mails via a Discord Channel</h3>
+  <p>
+    DiscordMail allows you to recieve emails from a Discord Channel!
+    Just invite and type <code>dmail register</code>.
+  </p>
+  <h4 id="commands">Commands</h4>
+  <ul>
+    <li>
+      <code>encode</code>
+      <ul>
+        <li>Turn a webhook into an email.</li>
+      </ul>
+    </li>
+    <li>
+      <code>decode</code>
+      <ul>
+        <li>Turn an email back into a webhook.</li>
+      </ul>
+    </li>
+    <li>
+      <strong><code>register</code></strong>
+      <ul>
+        <li>Automatically create a webhook and email</li>
+      </ul>
+    </li>
+  </ul>
+</div>

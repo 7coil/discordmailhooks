@@ -279,7 +279,7 @@ const server = new SMTPServer({
         console.log('Recieved an E-Mail');
         return callback();
       } catch (e) {
-        error = new Error(`Something failed. ${data.hidden ? 'Please contact the owner of the webhook directly.' : `Is the webhook ${data.webhook} valid?`} For support, visit https://discordmail.com/. Full error: ${e.message}`);
+        error = new Error('Something failed. For support, visit https://discordmail.com/.');
         error.responseCode = 552;
         console.log('=======================');
         console.log('Error report');

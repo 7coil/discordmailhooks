@@ -21,7 +21,7 @@
     "jszip": "^3.1.5",
     "mailparser": "^2.6.0",
     "node-fetch": "^2.3.0",
-    "request": "^2.87.0",
+    "request": "^2.88.0",
     "smtp-server": "^3.5.0"
   }
 }

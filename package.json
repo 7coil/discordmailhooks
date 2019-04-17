@@ -9,7 +9,7 @@
   "author": "Moustacheminer Server Services",
   "license": "MIT",
   "devDependencies": {
-    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-google": "^0.12.0",
     "eslint-plugin-import": "^2.17.2"
   },

@@ -11,7 +11,7 @@
   "devDependencies": {
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-google": "^0.13.0",
-    "eslint-plugin-import": "^2.17.2"
+    "eslint-plugin-import": "^2.17.3"
   },
   "dependencies": {
     "eris": "^0.9.0",

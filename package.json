@@ -10,7 +10,7 @@
   "license": "MIT",
   "devDependencies": {
     "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-config-google": "^0.13.0",
+    "eslint-config-google": "^0.14.0",
     "eslint-plugin-import": "^2.18.2"
   },
   "dependencies": {
